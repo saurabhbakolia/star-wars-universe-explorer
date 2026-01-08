@@ -13,6 +13,7 @@ export const Layout = ({ children }: LayoutProps) => {
     { path: '/', label: 'Characters' },
     { path: '/starships', label: 'Starships' },
     { path: '/films', label: 'Films' },
+    { path: '/favorites', label: 'Favorites' },
   ];
 
   return (

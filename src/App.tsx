@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { CharactersPage } from './pages/CharactersPage';
 import { StarshipsPage } from './pages/StarshipsPage';
 import { FilmsPage } from './pages/FilmsPage';
+import { FavoritesPage } from './pages/FavoritesPage';
 import { CharacterDetailPage } from './pages/CharacterDetailPage';
 import { StarshipDetailPage } from './pages/StarshipDetailPage';
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/starships" element={<StarshipsPage />} />
             <Route path="/starships/:id" element={<StarshipDetailPage />} />
             <Route path="/films" element={<FilmsPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Layout>
