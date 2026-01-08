@@ -31,19 +31,19 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
   return (
     <Card hover onClick={handleCardClick}>
       <CardHeader>
-        <div className="flex items-start justify-between">
-          <CardTitle>{character.name}</CardTitle>
+        <div className="flex items-start justify-between gap-2">
+          <CardTitle className="text-base sm:text-lg md:text-xl break-words flex-1 min-w-0">{character.name}</CardTitle>
           <button
             onClick={handleFavoriteToggle}
-            className="text-sw-gold hover:text-sw-gold/80 transition-colors"
+            className="text-sw-gold hover:text-sw-gold/80 transition-colors flex-shrink-0"
             aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >
             {isFavorite ? (
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
             ) : (
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
             )}
@@ -51,7 +51,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2 text-sm">
+        <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
           <div className="flex justify-between">
             <span className="text-sw-gray/70">Height:</span>
             <span className="text-sw-gray">{character.height} cm</span>
@@ -72,7 +72,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         <Button
           variant="outline"
           size="sm"
-          className="w-full mt-4"
+          className="w-full mt-3 sm:mt-4 text-xs sm:text-sm"
           onClick={(e) => {
             e.stopPropagation();
             handleCardClick();

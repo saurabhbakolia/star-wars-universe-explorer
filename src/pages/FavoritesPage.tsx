@@ -52,10 +52,10 @@ export const FavoritesPage = () => {
 
   if (!hasAnyFavorites) {
     return (
-      <div className="text-center py-12">
-        <div className="mb-4">
+      <div className="text-center py-8 sm:py-12">
+        <div className="mb-3 sm:mb-4">
           <svg
-            className="w-24 h-24 mx-auto text-sw-gray/30"
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto text-sw-gray/30"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -68,8 +68,8 @@ export const FavoritesPage = () => {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-sw-gold mb-2">No Favorites Yet</h2>
-        <p className="text-sw-gray/70 text-lg">
+        <h2 className="text-xl sm:text-2xl font-bold text-sw-gold mb-2">No Favorites Yet</h2>
+        <p className="text-sm sm:text-base md:text-lg text-sw-gray/70 px-4">
           Start exploring and add your favorite characters and starships!
         </p>
       </div>
@@ -78,17 +78,17 @@ export const FavoritesPage = () => {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-sw-gold mb-4">Favorites</h1>
-        <p className="text-sw-gray/70">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-sw-gold mb-2 sm:mb-3 md:mb-4">Favorites</h1>
+        <p className="text-sm sm:text-base text-sw-gray/70">
           Your favorite Star Wars characters and starships
         </p>
       </div>
 
       {favoriteCharacters.length > 0 && (
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-sw-gray">
+        <div className="mb-8 sm:mb-10 md:mb-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-sw-gray">
               Characters ({characters.length})
             </h2>
             {isLoadingCharacters && (
@@ -96,15 +96,15 @@ export const FavoritesPage = () => {
             )}
           </div>
           {characters.length === 0 && isLoadingCharacters ? (
-            <div className="text-center py-8">
+            <div className="text-center py-6 sm:py-8">
               <LoadingSpinner size="md" />
             </div>
           ) : characters.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-sw-gray/70">Failed to load favorite characters</p>
+            <div className="text-center py-6 sm:py-8">
+              <p className="text-sm sm:text-base text-sw-gray/70">Failed to load favorite characters</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
               {characters.map((character) => (
                 <CharacterCard key={character.url} character={character} />
               ))}
@@ -115,8 +115,8 @@ export const FavoritesPage = () => {
 
       {favoriteStarships.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-sw-gray">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-sw-gray">
               Starships ({starships.length})
             </h2>
             {isLoadingStarships && (
@@ -124,15 +124,15 @@ export const FavoritesPage = () => {
             )}
           </div>
           {starships.length === 0 && isLoadingStarships ? (
-            <div className="text-center py-8">
+            <div className="text-center py-6 sm:py-8">
               <LoadingSpinner size="md" />
             </div>
           ) : starships.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-sw-gray/70">Failed to load favorite starships</p>
+            <div className="text-center py-6 sm:py-8">
+              <p className="text-sm sm:text-base text-sw-gray/70">Failed to load favorite starships</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
               {starships.map((starship) => (
                 <StarshipCard key={starship.url} starship={starship} />
               ))}

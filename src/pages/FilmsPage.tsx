@@ -84,44 +84,44 @@ export const FilmsPage = () => {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-sw-gold mb-4">Films</h1>
-        <p className="text-sw-gray/70 mb-6">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-sw-gold mb-2 sm:mb-3 md:mb-4">Films</h1>
+        <p className="text-sm sm:text-base text-sw-gray/70 mb-4 sm:mb-6">
           Explore the complete Star Wars saga in chronological order ({sortedFilms.length} total)
         </p>
       </div>
 
       {sortedFilms.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-sw-gray/70 text-lg">No films found</p>
+        <div className="text-center py-8 sm:py-12">
+          <p className="text-base sm:text-lg text-sw-gray/70">No films found</p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8">
             {paginatedFilms.map((film) => (
               <Card key={film.url} hover>
                 <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-2xl">Episode {film.episode_id}</CardTitle>
-                    <span className="text-sw-gold text-sm font-semibold">
+                  <div className="flex items-start justify-between mb-2 gap-2">
+                    <CardTitle className="text-xl sm:text-2xl">Episode {film.episode_id}</CardTitle>
+                    <span className="text-sw-gold text-xs sm:text-sm font-semibold flex-shrink-0">
                       {formatDate(film.release_date)}
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold text-sw-gray">{film.title}</h2>
+                  <h2 className="text-lg sm:text-xl font-bold text-sw-gray break-words">{film.title}</h2>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div>
-                      <p className="text-sw-gray/70 text-sm mb-2">Director</p>
-                      <p className="text-sw-gray">{film.director}</p>
+                      <p className="text-sw-gray/70 text-xs sm:text-sm mb-1 sm:mb-2">Director</p>
+                      <p className="text-sm sm:text-base text-sw-gray break-words">{film.director}</p>
                     </div>
                     <div>
-                      <p className="text-sw-gray/70 text-sm mb-2">Producer</p>
-                      <p className="text-sw-gray">{film.producer}</p>
+                      <p className="text-sw-gray/70 text-xs sm:text-sm mb-1 sm:mb-2">Producer</p>
+                      <p className="text-sm sm:text-base text-sw-gray break-words">{film.producer}</p>
                     </div>
                     <div>
-                      <p className="text-sw-gray/70 text-sm mb-2">Opening Crawl</p>
-                      <p className="text-sw-gray text-sm line-clamp-3 italic">
+                      <p className="text-sw-gray/70 text-xs sm:text-sm mb-1 sm:mb-2">Opening Crawl</p>
+                      <p className="text-xs sm:text-sm text-sw-gray line-clamp-3 italic">
                         {film.opening_crawl}
                       </p>
                     </div>
@@ -137,21 +137,25 @@ export const FilmsPage = () => {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentPage === 1}
+                size="sm"
+                className="w-full sm:w-auto"
               >
                 Previous
               </Button>
-              <span className="text-sw-gray">
+              <span className="text-sm sm:text-base text-sw-gray">
                 Page {currentPage} of {totalPages}
               </span>
               <Button
                 variant="outline"
                 onClick={handleNext}
                 disabled={currentPage >= totalPages}
+                size="sm"
+                className="w-full sm:w-auto"
               >
                 Next
               </Button>

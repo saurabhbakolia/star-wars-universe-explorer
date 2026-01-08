@@ -52,16 +52,16 @@ export const CharacterDetailPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Button variant="ghost" onClick={() => navigate(-1)} className="mb-6">
+      <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4 sm:mb-6 text-sm sm:text-base">
         ← Back
       </Button>
 
       <Card>
         <CardHeader>
-          <div className="flex items-start justify-between">
-            <div>
-              <CardTitle className="text-3xl mb-2">{character.name}</CardTitle>
-              <p className="text-sw-gray/70">Character Details</p>
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-xl sm:text-2xl md:text-3xl mb-1 sm:mb-2 break-words">{character.name}</CardTitle>
+              <p className="text-xs sm:text-sm text-sw-gray/70">Character Details</p>
             </div>
             <button
               onClick={() => {
@@ -71,14 +71,15 @@ export const CharacterDetailPage = () => {
                   addCharacter(character.url);
                 }
               }}
-              className="text-sw-gold hover:text-sw-gold/80 transition-colors"
+              className="text-sw-gold hover:text-sw-gold/80 transition-colors flex-shrink-0"
+              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
             >
               {isFavorite ? (
-                <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               ) : (
-                <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" strokeWidth="2" />
                 </svg>
               )}
@@ -87,15 +88,16 @@ export const CharacterDetailPage = () => {
         </CardHeader>
         <CardContent>
           {/* Anime Sketch Section */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-sw-gold">Anime Sketch</h3>
+          <div className="mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-sw-gold">Anime Sketch</h3>
               {!animeSketchUrl && (
                 <Button
                   onClick={() => generateSketch(character.name)}
                   disabled={isAnimeSketchLoading}
                   variant="outline"
                   size="sm"
+                  className="w-full sm:w-auto"
                 >
                   {isAnimeSketchLoading ? (
                     <>
@@ -110,10 +112,10 @@ export const CharacterDetailPage = () => {
             </div>
             
             {isAnimeSketchLoading && !animeSketchUrl && (
-              <div className="flex items-center justify-center min-h-[300px] bg-sw-dark/50 rounded-lg border border-sw-gray/20">
-                <div className="text-center">
+              <div className="flex items-center justify-center min-h-[200px] sm:min-h-[300px] bg-sw-dark/50 rounded-lg border border-sw-gray/20">
+                <div className="text-center px-4">
                   <LoadingSpinner size="lg" />
-                  <p className="mt-4 text-sw-gray/70">Generating anime sketch...</p>
+                  <p className="mt-4 text-sm sm:text-base text-sw-gray/70">Generating anime sketch...</p>
                 </div>
               </div>
             )}
@@ -140,20 +142,20 @@ export const CharacterDetailPage = () => {
                   <img
                     src={animeSketchUrl}
                     alt={`Anime sketch of ${character.name}`}
-                    className="w-full h-auto max-h-[500px] object-contain bg-sw-dark/50"
+                    className="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] object-contain bg-sw-dark/50"
                   />
                   <div className="absolute top-2 right-2 bg-sw-dark/80 px-2 py-1 rounded text-xs text-sw-gold">
                     ✨ Generated
                   </div>
                 </div>
                 {animeSketchPrompt && (
-                  <div className="mt-2 p-3 bg-sw-dark/30 rounded-lg border border-sw-gray/20">
+                  <div className="mt-2 p-2 sm:p-3 bg-sw-dark/30 rounded-lg border border-sw-gray/20">
                     <p className="text-xs text-sw-gray/60 mb-1">Generated Prompt:</p>
-                    <p className="text-sm text-sw-gray/80">{animeSketchPrompt}</p>
+                    <p className="text-xs sm:text-sm text-sw-gray/80 break-words">{animeSketchPrompt}</p>
                   </div>
                 )}
-                <div className="mt-2 flex items-center justify-between">
-                  <p className="text-sm text-sw-gray/70">
+                <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                  <p className="text-xs sm:text-sm text-sw-gray/70">
                     AI-generated anime-style sketch
                   </p>
                   <Button
@@ -161,6 +163,7 @@ export const CharacterDetailPage = () => {
                     disabled={isAnimeSketchLoading}
                     variant="ghost"
                     size="sm"
+                    className="w-full sm:w-auto"
                   >
                     {isAnimeSketchLoading ? 'Regenerating...' : '🔄 Regenerate'}
                   </Button>
@@ -170,15 +173,16 @@ export const CharacterDetailPage = () => {
           </div>
 
           {/* AI Generated Story Section */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-sw-gold">Character Story</h3>
+          <div className="mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-sw-gold">Character Story</h3>
               {!story && (
                 <Button
                   onClick={generateStory}
                   disabled={isStoryLoading}
                   variant="outline"
                   size="sm"
+                  className="w-full sm:w-auto"
                 >
                   {isStoryLoading ? (
                     <>
@@ -194,10 +198,10 @@ export const CharacterDetailPage = () => {
             
             {/* Show loading state only when actively generating a new story */}
             {isStoryLoading && !story && (
-              <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-br from-sw-dark/60 via-sw-dark/40 to-sw-dark/60 rounded-xl border border-sw-gold/20 shadow-lg shadow-sw-gold/10">
-                <div className="text-center">
+              <div className="flex items-center justify-center min-h-[150px] sm:min-h-[200px] bg-gradient-to-br from-sw-dark/60 via-sw-dark/40 to-sw-dark/60 rounded-xl border border-sw-gold/20 shadow-lg shadow-sw-gold/10">
+                <div className="text-center px-4">
                   <LoadingSpinner size="lg" />
-                  <p className="mt-4 text-sw-gray/70 text-sm">Generating story...</p>
+                  <p className="mt-4 text-sw-gray/70 text-xs sm:text-sm">Generating story...</p>
                 </div>
               </div>
             )}
@@ -233,16 +237,16 @@ export const CharacterDetailPage = () => {
                   </div>
                   
                   {/* Story content with fixed height and scrollbar */}
-                  <div className="relative z-10 h-[400px] overflow-y-auto px-8 pt-12 pb-4 story-scroll">
+                  <div className="relative z-10 h-[250px] sm:h-[300px] md:h-[400px] overflow-y-auto px-4 sm:px-6 md:px-8 pt-8 sm:pt-10 md:pt-12 pb-4 story-scroll">
                     <div className="prose prose-invert max-w-none">
-                      <p className="text-sm sm:text-base text-sw-gray/90 leading-7 sm:leading-8 whitespace-pre-wrap font-light tracking-wide pr-2">
+                      <p className="text-xs sm:text-sm md:text-base text-sw-gray/90 leading-6 sm:leading-7 md:leading-8 whitespace-pre-wrap font-light tracking-wide pr-2">
                         {story}
                       </p>
                     </div>
                   </div>
                   
                   {/* Footer with action - fixed at bottom */}
-                  <div className="relative z-10 border-t border-sw-gold/10 bg-sw-dark/40 backdrop-blur-sm px-8 py-4 flex items-center justify-between rounded-b-xl">
+                  <div className="relative z-10 border-t border-sw-gold/10 bg-sw-dark/40 backdrop-blur-sm px-4 sm:px-6 md:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 rounded-b-xl">
                     <p className="text-xs text-sw-gray/60 italic">
                       AI-generated short story • {isStoryCached ? 'From cache' : 'Freshly generated'}
                     </p>
@@ -251,7 +255,7 @@ export const CharacterDetailPage = () => {
                       disabled={isStoryLoading}
                       variant="ghost"
                       size="sm"
-                      className="text-xs text-sw-gray/70 hover:text-sw-gold transition-colors"
+                      className="text-xs text-sw-gray/70 hover:text-sw-gold transition-colors w-full sm:w-auto"
                     >
                       {isStoryLoading ? (
                         <>
@@ -268,52 +272,52 @@ export const CharacterDetailPage = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <h3 className="text-lg font-semibold text-sw-gold mb-4">Physical Attributes</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
+              <h3 className="text-base sm:text-lg font-semibold text-sw-gold mb-3 sm:mb-4">Physical Attributes</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Height:</span>
                   <span className="text-sw-gray">{character.height} cm</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Mass:</span>
                   <span className="text-sw-gray">{character.mass} kg</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Hair Color:</span>
                   <span className="text-sw-gray capitalize">{character.hair_color}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Skin Color:</span>
                   <span className="text-sw-gray capitalize">{character.skin_color}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Eye Color:</span>
                   <span className="text-sw-gray capitalize">{character.eye_color}</span>
                 </div>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-sw-gold mb-4">Personal Information</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
+              <h3 className="text-base sm:text-lg font-semibold text-sw-gold mb-3 sm:mb-4">Personal Information</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Birth Year:</span>
                   <span className="text-sw-gold">{character.birth_year}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Gender:</span>
                   <span className="text-sw-gray capitalize">{character.gender}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Films:</span>
                   <span className="text-sw-gray">{character.films.length}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Starships:</span>
                   <span className="text-sw-gray">{character.starships.length}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-sw-gray/70">Vehicles:</span>
                   <span className="text-sw-gray">{character.vehicles.length}</span>
                 </div>

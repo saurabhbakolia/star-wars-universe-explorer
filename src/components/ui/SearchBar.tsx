@@ -46,10 +46,10 @@ export const SearchBar = ({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-4 py-3 pl-12 bg-white/5 border border-white/10 rounded-lg text-sw-gray placeholder-sw-gray/50 focus:outline-none focus:ring-2 focus:ring-sw-gold focus:border-transparent transition-all"
+        className="w-full px-3 sm:px-4 py-2 sm:py-3 pl-10 sm:pl-12 bg-white/5 border border-white/10 rounded-lg text-sm sm:text-base text-sw-gray placeholder-sw-gray/50 focus:outline-none focus:ring-2 focus:ring-sw-gold focus:border-transparent transition-all"
       />
       <svg
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-sw-gray/50"
+        className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-sw-gray/50"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
