@@ -1,4 +1,3 @@
-import { apiClient } from './client';
 import type { Character } from '../schemas/swapi';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
