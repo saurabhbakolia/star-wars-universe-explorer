@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCharacter } from '../hooks/useCharacters';
 import { useCharacterImage } from '../hooks/useCharacterImage';
+import { useCharacterStory } from '../hooks/useCharacterStory';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { LoadingSpinner } from '../components/LoadingSpinner';
@@ -20,6 +21,15 @@ export const CharacterDetailPage = () => {
     generateImage,
     isCached,
   } = useCharacterImage(character || null);
+
+  const {
+    story,
+    isLoading: isStoryLoading,
+    isError: isStoryError,
+    error: storyError,
+    generateStory,
+    isCached: isStoryCached,
+  } = useCharacterStory(character || null);
 
   if (isLoading) {
     return (
@@ -152,6 +162,105 @@ export const CharacterDetailPage = () => {
                   >
                     {isImageLoading ? 'Regenerating...' : '🔄 Regenerate'}
                   </Button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* AI Generated Story Section */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-sw-gold">Character Story</h3>
+              {!story && (
+                <Button
+                  onClick={generateStory}
+                  disabled={isStoryLoading}
+                  variant="outline"
+                  size="sm"
+                >
+                  {isStoryLoading ? (
+                    <>
+                      <LoadingSpinner size="sm" className="mr-2" />
+                      Generating...
+                    </>
+                  ) : (
+                    '📖 Generate Story'
+                  )}
+                </Button>
+              )}
+            </div>
+            
+            {/* Show loading state only when actively generating a new story */}
+            {isStoryLoading && !story && (
+              <div className="flex items-center justify-center min-h-[200px] bg-gradient-to-br from-sw-dark/60 via-sw-dark/40 to-sw-dark/60 rounded-xl border border-sw-gold/20 shadow-lg shadow-sw-gold/10">
+                <div className="text-center">
+                  <LoadingSpinner size="lg" />
+                  <p className="mt-4 text-sw-gray/70 text-sm">Generating story...</p>
+                </div>
+              </div>
+            )}
+            
+            {/* Only show error if generation failed (not if cached story doesn't exist - that's normal) */}
+            {isStoryError && !story && storyError && (
+              <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 shadow-lg">
+                <p className="text-red-400 text-sm">
+                  {storyError instanceof Error ? storyError.message : 'Failed to generate story'}
+                </p>
+                <Button
+                  onClick={generateStory}
+                  variant="outline"
+                  size="sm"
+                  className="mt-2"
+                >
+                  Try Again
+                </Button>
+              </div>
+            )}
+            
+            {/* Show cached or generated story if available */}
+            {story && (
+              <div className="relative group">
+                <div className="relative bg-gradient-to-br from-sw-dark/70 via-sw-dark/50 to-sw-dark/70 rounded-xl border border-sw-gold/20 hover:border-sw-gold/40 transition-all duration-300 shadow-xl shadow-sw-gold/5 hover:shadow-2xl hover:shadow-sw-gold/10 backdrop-blur-sm overflow-hidden">
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-sw-gold/20 to-transparent rounded-tl-xl pointer-events-none z-0"></div>
+                  <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-sw-gold/10 to-transparent rounded-br-xl pointer-events-none z-0"></div>
+                  
+                  {/* Cached badge */}
+                  <div className="absolute top-4 right-4 bg-sw-dark/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium text-sw-gold border border-sw-gold/30 shadow-lg z-20">
+                    {isStoryCached ? '📦 Cached Story' : '✨ New Story'}
+                  </div>
+                  
+                  {/* Story content with fixed height and scrollbar */}
+                  <div className="relative z-10 h-[400px] overflow-y-auto px-8 pt-12 pb-4 story-scroll">
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-sm sm:text-base text-sw-gray/90 leading-7 sm:leading-8 whitespace-pre-wrap font-light tracking-wide pr-2">
+                        {story}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Footer with action - fixed at bottom */}
+                  <div className="relative z-10 border-t border-sw-gold/10 bg-sw-dark/40 backdrop-blur-sm px-8 py-4 flex items-center justify-between rounded-b-xl">
+                    <p className="text-xs text-sw-gray/60 italic">
+                      AI-generated short story • {isStoryCached ? 'From cache' : 'Freshly generated'}
+                    </p>
+                    <Button
+                      onClick={generateStory}
+                      disabled={isStoryLoading}
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs text-sw-gray/70 hover:text-sw-gold transition-colors"
+                    >
+                      {isStoryLoading ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-1.5" />
+                          Regenerating...
+                        </>
+                      ) : (
+                        '🔄 Regenerate'
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
